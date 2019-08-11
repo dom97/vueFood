@@ -25,4 +25,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+@import '../style/skeleton.css';
+@import '../style/normalize.css';
 </style>
