@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="food">
-      <div v-for="item in items">
+      <div v-for="item in sortedItems">
         <h2>{{item.title}}</h2>
         <p>{{item.description}}</p>
         <p>{{item.rating}}</p>
@@ -24,10 +24,30 @@ export default {
           description: "test description",
           title: "test title",
           rating: "test rating / 10"
+      },
+      {        
+          description: "a",
+          title: "s",
+          rating: "d"
+      },
+      {        
+          description: "d",
+          title: "s",
+          rating: "a"
+      },
+      {        
+          description: "s",
+          title: "d",
+          rating: "a"
       }
       ]
     }
   },
+  computed: {
+    sortedItems: function() {
+      return this.items.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+    }
+  }
 }
 </script>
 
