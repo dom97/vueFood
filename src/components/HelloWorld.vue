@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="food">
+      <button @click="toggleSort">Sort</button>
       <div v-for="item in sortedItems">
         <h2>{{item.title}}</h2>
         <p>{{item.description}}</p>
@@ -40,12 +41,22 @@ export default {
           title: "d",
           rating: "a"
       }
-      ]
+      ],
+      sort: true
     }
   },
   computed: {
     sortedItems: function() {
-      return this.items.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0))
+      if (!this.sort) {
+        return this.items.sort((a,b) => (a.title > b.title) ? -1 : ((b.title > a.title) ? 1 : 0))
+      } else {
+        return this.items.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)) 
+      }
+    }
+  },
+  methods: {
+    toggleSort: function() {
+      this.sort = !this.sort;
     }
   }
 }
