@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="food">
-      <button @click="toggleSort">Sort</button>
+      <button @click="toggleSort('title')">SortTitle</button>
+      <button @click="toggleSort('rating')">SortRating</button>
+      <button @click="toggleSort('description')">SortDescription</button>
+      <button @click="reverseSort">ReverseSort</button>
       <div v-for="item in sortedItems">
         <h2>{{item.title}}</h2>
         <p>{{item.description}}</p>
@@ -42,21 +45,25 @@ export default {
           rating: "a"
       }
       ],
-      sort: true
+      sort: 'title',
+      reverse: false
     }
   },
   computed: {
     sortedItems: function() {
-      if (!this.sort) {
-        return this.items.sort((a,b) => (a.title > b.title) ? -1 : ((b.title > a.title) ? 1 : 0))
-      } else {
-        return this.items.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)) 
-      }
+        if (this.reverse) {
+          return this.items.sort((a,b) => (a[this.sort] > b[this.sort]) ? 1 : ((b[this.sort] > a[this.sort]) ? -1 : 0)) 
+        } else {
+          return this.items.sort((a,b) => (a[this.sort] > b[this.sort]) ? -1 : ((b[this.sort] > a[this.sort]) ? 1 : 0)) 
+        }
     }
   },
   methods: {
-    toggleSort: function() {
-      this.sort = !this.sort;
+    toggleSort: function(type) {
+      this.sort = type;
+    },
+    reverseSort: function() {
+      this.reverse = !this.reverse;
     }
   }
 }
